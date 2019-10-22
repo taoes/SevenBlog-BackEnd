@@ -1,15 +1,15 @@
 package com.service.service.service.converter;
 
-import com.service.service.controller.resp.Blog;
-import com.service.service.mapper.dao.BlogDO;
+import com.service.service.controller.resp.Repos;
+import com.service.service.mapper.dao.ReposDO;
 
-public class BlogConverter implements Converter {
+public class ReposConverter implements Converter {
 
-    public static Blog of(BlogDO blogDO) {
-        return new Blog()
-                .setId(blogDO.getId())
-                .setTitle(blogDO.getTitle())
-                .setContent(blogDO.getContent())
-                .setDescription(blogDO.getDescription());
+    public static Repos of(ReposDO reposDO) {
+        return new Repos()
+                .setId(reposDO.getId())
+                .setName(reposDO.getName())
+                .setUrl(reposDO.getUrl())
+                .setDesc(reposDO.getDesc());
     }
 }

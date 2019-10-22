@@ -1,11 +1,10 @@
-package com.unionfab.cloud.infra.converter;
+package com.service.service.service.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.unionfab.uff.converter.Converter;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;

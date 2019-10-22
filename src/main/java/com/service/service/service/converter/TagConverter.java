@@ -1,16 +1,16 @@
 package com.service.service.service.converter;
 
 import com.service.service.controller.resp.Blog;
+import com.service.service.controller.resp.Tag;
 import com.service.service.mapper.dao.BlogDO;
+import com.service.service.mapper.dao.TagDO;
 
-public class BlogConverter implements Converter {
+public class TagConverter implements Converter {
 
-    public static Blog of(BlogDO blogDO) {
-        return new Blog()
-                .setId(blogDO.getId())
-                .setTitle(blogDO.getTitle())
-                .setTagIds()
-                .setContent(blogDO.getContent())
-                .setDescription(blogDO.getDescription());
+    public static Tag of(TagDO tagDO) {
+        return new Tag()
+                .setId(tagDO.getId())
+                .setName(tagDO.getName())
+                .setType(tagDO.getType());
     }
 }

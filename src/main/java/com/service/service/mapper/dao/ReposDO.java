@@ -1,29 +1,23 @@
 package com.service.service.mapper.dao;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-@TableName("blog")
-public class BlogDO {
+@TableName("repos")
+public class ReposDO {
 
     @TableId(type = IdType.AUTO)
     private long id;
 
-    private String title;
+    private String name;
 
-    private String description;
+    private String url;
 
-    private String tagIds;
-
-    private String content;
-
-    private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
-
+    @TableField("`desc`")
+    private String desc;
 
 }
