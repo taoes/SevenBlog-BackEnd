@@ -4,11 +4,11 @@ import java.util.Collection;
 import lombok.Data;
 
 @Data
-public class Page<T> {
+public class PageInfo<T> {
 
-    private int total;
+    private long total;
 
-    private int page;
+    private long page;
 
 
     private Collection<T> data;
