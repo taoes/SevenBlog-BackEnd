@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface PictureService {
 
+  Map<String, List<Picture>> getPictureList(PictureType type);
 
-    Map<String, List<Picture>> getPictureList(PictureType type);
+  void save(String url, String name, String topic, PictureType type);
 }

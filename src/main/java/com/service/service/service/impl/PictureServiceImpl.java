@@ -27,4 +27,11 @@ public class PictureServiceImpl implements PictureService {
         .map(Picture::of)
         .collect(Collectors.groupingBy(Picture::getTopic));
   }
+
+  @Override
+  public void save(String url, String name, String topic, PictureType type) {
+    PictureDO entity = new PictureDO();
+    entity.setImg(url).setName(name).setTopic(topic).setType(type);
+    this.pictureMapper.insert(entity);
+  }
 }
