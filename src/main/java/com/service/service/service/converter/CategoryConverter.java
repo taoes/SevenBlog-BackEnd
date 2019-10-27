@@ -1,16 +1,29 @@
 package com.service.service.service.converter;
 
-import com.service.service.controller.resp.Blog;
-import com.service.service.mapper.dao.BlogDO;
+import com.service.service.controller.resp.Category;
+import com.service.service.mapper.dao.CategoryDO;
 
-public class BlogConverter implements Converter {
+public class CategoryConverter implements Converter {
 
-  public static Blog of(BlogDO blogDO) {
-    return new Blog()
-        .setId(blogDO.getId())
-        .setTitle(blogDO.getTitle())
-        .setType(blogDO.getType())
-        .setContent(blogDO.getContent())
-        .setDescription(blogDO.getDescription());
+  public static Category of(CategoryDO categoryDO) {
+    if (categoryDO == null) {
+      return null;
+    }
+    return new Category()
+        .setId(categoryDO.getId())
+        .setName(categoryDO.getName())
+        .setKey(categoryDO.getKey())
+        .setType(categoryDO.getType());
+  }
+
+  public static CategoryDO of(Category category) {
+    if (category == null) {
+      return null;
+    }
+    return new CategoryDO()
+        .setId(category.getId())
+        .setName(category.getName())
+        .setKey(category.getKey())
+        .setType(category.getType());
   }
 }

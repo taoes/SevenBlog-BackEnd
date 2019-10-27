@@ -1,18 +1,22 @@
 package com.service.service.controller.resp;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
 public class Blog {
 
-    private long id;
+  private long id;
 
-    private String title;
+  private String title;
 
-    private String description;
+  private String type;
 
-    private List<Tag> tags;
+  private String description;
 
-    private String content;
+  private String content;
+
+  private LocalDateTime createDatetime;
+
+  private LocalDateTime updateDatetime;
 }

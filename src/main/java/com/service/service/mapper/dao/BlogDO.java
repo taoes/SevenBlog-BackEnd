@@ -11,7 +11,7 @@ import lombok.Data;
 public class BlogDO {
 
     @TableId(type = IdType.AUTO)
-    private long id;
+    private Long id;
 
     private String title;
 

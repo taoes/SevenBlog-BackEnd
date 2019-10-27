@@ -1,18 +1,17 @@
-package com.service.service.controller.resp;
+package com.service.service.controller.req;
 
-import java.util.List;
 import lombok.Data;
 
 @Data
-public class Blog {
+public class BlogReq {
 
-    private long id;
+  private Long id;
 
-    private String title;
+  private String title;
 
-    private String description;
+  private String type;
 
-    private List<Tag> tags;
+  private String description;
 
-    private String content;
+  private String content;
 }

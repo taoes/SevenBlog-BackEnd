@@ -1,7 +1,9 @@
 package com.service.service.service;
 
+import com.service.service.controller.req.BlogReq;
 import com.service.service.controller.resp.Blog;
 import com.service.service.controller.resp.PageInfo;
+import java.util.List;
 
 public interface BlogService {
 
@@ -17,4 +19,12 @@ public interface BlogService {
      * @return
      */
     Blog getById(Long blogId);
+
+    /**
+     * 更新博客
+     */
+    Blog update(BlogReq req);
+
+    /** 搜索所有文章的概要信息 */
+    List<Blog> listAll(String key);
 }

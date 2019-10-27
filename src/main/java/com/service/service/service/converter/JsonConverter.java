@@ -17,6 +17,10 @@ import org.springframework.util.StringUtils;
 public class JsonConverter implements Converter {
   public static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
+  static {
+    jsonObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
+
   public static <T> T readJSON(File file, Class<T> clazz) {
     try {
       return jsonObjectMapper.readValue(file, clazz);

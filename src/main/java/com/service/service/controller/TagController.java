@@ -1,27 +1,34 @@
 package com.service.service.controller;
 
 
-import com.service.service.controller.resp.Blog;
-import com.service.service.controller.resp.PageInfo;
-import com.service.service.service.BlogService;
+import com.service.service.controller.resp.Tag;
+import com.service.service.service.TagService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/blog")
-public class BlogController {
+@RequestMapping("/tag")
+public class TagController {
 
 
     @Autowired
-    private BlogService blogService;
+    private TagService tagService;
 
     @GetMapping
-    public PageInfo<Blog> getAllBlog(@RequestParam(defaultValue = "1") long pageNumber, @RequestParam(defaultValue = "10") long pageSize, String blogType) {
-        return blogService.list(null, pageNumber, pageSize,blogType);
+    public List<Tag> list() {
+        return tagService.all();
     }
 
-    @GetMapping("/detail/{blogId}")
-    public Blog getById(@PathVariable("blogId") Long blogId) {
-        return blogService.getById(blogId);
+
+    @PostMapping
+    public Tag add(@RequestBody Tag tag) {
+        return tagService.add(tag.getName(), tag.getType());
+    }
+
+
+    @PatchMapping("/{tagId}")
+    public Tag getById(@PathVariable("tagId") Long tagId, @RequestBody Tag tag) {
+        return tagService.update(tag.setId(tagId));
     }
 }

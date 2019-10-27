@@ -3,15 +3,13 @@ package com.service.service.controller.resp;
 import lombok.Data;
 
 @Data
-public class Blog {
+public class Category {
 
-  private long id;
+  private Long id;
 
-  private String title;
+  private String name;
+
+  private String key;
 
   private String type;
-
-  private String description;
-
-  private String content;
 }
