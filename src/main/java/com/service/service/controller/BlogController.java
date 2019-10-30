@@ -3,6 +3,7 @@ package com.service.service.controller;
 import com.service.service.controller.req.BlogReq;
 import com.service.service.controller.resp.Blog;
 import com.service.service.controller.resp.PageInfo;
+import com.service.service.mapper.dao.KeyValue;
 import com.service.service.service.BlogService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class BlogController {
   @GetMapping("/list")
   public List<Blog> getAllBlog(String key) {
     return blogService.listAll(key);
+  }
+
+  @GetMapping("/type/count")
+  public List<KeyValue> getAllCount() {
+    return blogService.getCount();
   }
 
   @GetMapping

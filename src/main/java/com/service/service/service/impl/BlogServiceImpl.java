@@ -9,6 +9,7 @@ import com.service.service.controller.resp.Blog;
 import com.service.service.controller.resp.PageInfo;
 import com.service.service.mapper.BlogMapper;
 import com.service.service.mapper.dao.BlogDO;
+import com.service.service.mapper.dao.KeyValue;
 import com.service.service.service.BlogService;
 import com.service.service.service.TagService;
 import com.service.service.service.converter.BlogConverter;
@@ -52,7 +53,6 @@ public class BlogServiceImpl implements BlogService {
   public List<Blog> listAll(String key) {
     Wrapper<BlogDO> queryWrapper =
         new LambdaQueryWrapper<BlogDO>()
-
             .eq(StringUtils.hasText(key), BlogDO::getTitle, key)
             .orderByDesc(BlogDO::getId);
     return this.blogMapper.selectList(queryWrapper).stream()
@@ -87,5 +87,10 @@ public class BlogServiceImpl implements BlogService {
       blogMapper.updateById(entity);
     }
     return getById(req.getId());
+  }
+
+  @Override
+  public List<KeyValue> getCount() {
+    return blogMapper.getCountByType();
   }
 }
