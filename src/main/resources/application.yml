@@ -14,3 +14,11 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+application:
+  qiniu:
+    ak: xxxx
+    sk: xxxx
+    bucket: xxxx
+    path: xxxx

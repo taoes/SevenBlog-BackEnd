@@ -8,18 +8,25 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import com.service.service.service.converter.JsonConverter;
 import java.io.InputStream;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Data
 public class QiniuUtils {
 
-  private final String ACCESS_KEY = "vVMy7TGPhJijh08govbkA-CtZpUi6apK_WjqyQdg";
+  @Value("application.qiniu.ak")
+  private String ACCESS_KEY;
 
-  private final String SECRET_KEY = "KkeAc_rBaSy4CCa_DUSxrwpDR8rdfo_2u_jI4TBX";
+  @Value("application.qiniu.ak")
+  private String SECRET_KEY;
 
-  private final String BUCKET = "myblog";
+  @Value("application.qiniu.bucket")
+  private String BUCKET;
 
-  private final String PATH = "http://static.zhoutao123.com/";
+  @Value("application.qiniu.path")
+  private String PATH;
 
   /** 将图片上传到七牛云 */
   public String uploadImg(InputStream stream) {
