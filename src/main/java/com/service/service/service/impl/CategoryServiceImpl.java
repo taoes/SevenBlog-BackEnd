@@ -7,8 +7,10 @@ import com.service.service.mapper.CategoryMapper;
 import com.service.service.mapper.dao.CategoryDO;
 import com.service.service.service.CategoryService;
 import com.service.service.service.converter.CategoryConverter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,19 +21,37 @@ public class CategoryServiceImpl implements CategoryService {
   @Autowired private CategoryMapper categoryMapper;
 
   @Override
-  public Map<String, List<Category>> all() {
+  public List<Category> all() {
     Wrapper<CategoryDO> queryWrapper =
         new LambdaQueryWrapper<CategoryDO>().orderByDesc(CategoryDO::getId);
-    return categoryMapper.selectList(queryWrapper).stream()
+    List<CategoryDO> categoryDOS = categoryMapper.selectList(queryWrapper);
+
+    Map<String, List<Category>> categoryMap =
+        categoryDOS.stream()
+            .filter(categoryDO -> Objects.nonNull(categoryDO.getType()))
+            .map(CategoryConverter::of)
+            .collect(Collectors.groupingBy(Category::getType));
+
+    return categoryDOS.stream()
+        .filter(categoryDO -> Objects.isNull(categoryDO.getType()))
         .map(CategoryConverter::of)
-        .collect(Collectors.groupingBy(Category::getType));
+        .peek(
+            category -> {
+              List<Category> categories =
+                  categoryMap.getOrDefault(category.getKey(), new ArrayList<>(0));
+              category.setSub(categories);
+            })
+        .collect(Collectors.toList());
   }
 
   @Override
   public List<Category> list() {
     Wrapper<CategoryDO> queryWrapper =
         new LambdaQueryWrapper<CategoryDO>().orderByDesc(CategoryDO::getId);
-    return categoryMapper.selectList(queryWrapper).stream()
+    List<CategoryDO> categoryDOS = categoryMapper.selectList(queryWrapper);
+
+    return categoryDOS.stream()
+        .filter(categoryDO -> Objects.nonNull(categoryDO.getType()))
         .map(CategoryConverter::of)
         .collect(Collectors.toList());
   }

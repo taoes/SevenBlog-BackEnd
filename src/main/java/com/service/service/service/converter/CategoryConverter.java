@@ -13,7 +13,8 @@ public class CategoryConverter implements Converter {
         .setId(categoryDO.getId())
         .setName(categoryDO.getName())
         .setKey(categoryDO.getKey())
-        .setType(categoryDO.getType());
+        .setType(categoryDO.getType())
+        .setIcon(categoryDO.getIcon());
   }
 
   public static CategoryDO of(Category category) {
@@ -24,6 +25,7 @@ public class CategoryConverter implements Converter {
         .setId(category.getId())
         .setName(category.getName())
         .setKey(category.getKey())
-        .setType(category.getType());
+        .setType(category.getType())
+        .setIcon(category.getIcon());
   }
 }

@@ -19,4 +19,6 @@ public class CategoryDO {
   private String key;
 
   private String type;
+
+  private String icon;
 }

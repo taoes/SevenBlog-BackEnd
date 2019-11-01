@@ -3,7 +3,6 @@ package com.service.service.controller;
 import com.service.service.controller.resp.Category;
 import com.service.service.service.CategoryService;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +18,7 @@ public class CategoryController {
   }
 
   @GetMapping
-  public Map<String, List<Category>> all() {
+  public List<Category> all() {
     return categoryService.all();
   }
 
