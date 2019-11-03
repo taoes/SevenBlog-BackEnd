@@ -1,6 +1,7 @@
 package com.service.service.controller.resp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -15,6 +16,8 @@ public class Blog {
   private String description;
 
   private String content;
+
+  private List<String> tagList;
 
   private LocalDateTime createDatetime;
 

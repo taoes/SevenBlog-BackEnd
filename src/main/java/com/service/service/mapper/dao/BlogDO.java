@@ -17,7 +17,7 @@ public class BlogDO {
 
     private String description;
 
-    private String tagIds;
+    private String tags;
 
     private String type;
 
