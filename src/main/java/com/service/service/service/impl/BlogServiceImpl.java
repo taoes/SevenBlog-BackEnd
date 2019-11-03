@@ -13,6 +13,7 @@ import com.service.service.mapper.dao.KeyValue;
 import com.service.service.service.BlogService;
 import com.service.service.service.TagService;
 import com.service.service.service.converter.BlogConverter;
+import com.service.service.service.converter.JsonConverter;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -74,6 +75,7 @@ public class BlogServiceImpl implements BlogService {
     BlogDO entity = new BlogDO();
     entity
         .setId(req.getId())
+        .setTags(JsonConverter.toJSONString(req.getTagList()))
         .setContent(req.getContent())
         .setDescription(req.getDescription())
         .setTitle(req.getTitle())
