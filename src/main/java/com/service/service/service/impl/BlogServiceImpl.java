@@ -63,10 +63,15 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public Blog getById(Long blogId) {
+
+    // 获取文章详情信息
     BlogDO blogDO = blogMapper.selectById(blogId);
     if (blogDO == null) {
       throw new RuntimeException("文章不存在，获取失败");
     }
+    // 更新文章个数
+    blogDO.setAccessTime(blogDO.getAccessTime() + 1);
+    blogMapper.updateById(blogDO);
     return BlogConverter.of(blogDO);
   }
 

@@ -9,6 +9,8 @@ public class Blog {
 
   private long id;
 
+  private int access;
+
   private String title;
 
   private String type;

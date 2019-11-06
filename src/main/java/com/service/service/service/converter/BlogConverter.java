@@ -16,6 +16,7 @@ public class BlogConverter implements Converter {
 
     return new Blog()
         .setId(blogDO.getId())
+        .setAccess(blogDO.getAccessTime())
         .setTagList(tagList)
         .setTitle(blogDO.getTitle())
         .setType(blogDO.getType())
@@ -32,6 +33,7 @@ public class BlogConverter implements Converter {
             .orElse(new ArrayList<>(0));
     return new Blog()
         .setId(blogDO.getId())
+        .setAccess(blogDO.getAccessTime())
         .setTagList(tagList)
         .setTitle(blogDO.getTitle())
         .setType(blogDO.getType())

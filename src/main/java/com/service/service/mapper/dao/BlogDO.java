@@ -15,6 +15,8 @@ public class BlogDO {
 
     private String title;
 
+    private Integer accessTime;
+
     private String description;
 
     private String tags;
