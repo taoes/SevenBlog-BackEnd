@@ -27,6 +27,9 @@ dependencies {
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
     implementation 'com.qiniu:qiniu-java-sdk:7.2.27'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'

@@ -1,6 +1,7 @@
 package com.service.service.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.common.util.concurrent.RateLimiter;
 import static com.service.service.bean.FinalRedisKey.USER_REDIS_KEY;
 import com.service.service.controller.resp.UserToken;
 import com.service.service.mapper.UserMapper;
@@ -32,9 +33,16 @@ public class UserServiceImpl extends BaseService implements UserService {
 
   @Autowired private RedisUtil redisUtil;
 
+  RateLimiter rateLimiter = RateLimiter.create(0.1);
+
   @Override
   @Transactional
   public UserToken login(String username, String password) {
+
+    if (!rateLimiter.tryAcquire()) {
+      throw new RuntimeException("访问次数过快，请稍后重试");
+    }
+
     UserDO userDO = findById(username);
 
     if (userDO == null) {
