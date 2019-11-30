@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.service.service.bean.FinalRedisKey;
 import com.service.service.controller.req.BlogReq;
 import com.service.service.controller.resp.Blog;
 import com.service.service.controller.resp.PageInfo;
@@ -14,6 +15,7 @@ import com.service.service.service.BlogService;
 import com.service.service.service.TagService;
 import com.service.service.service.converter.BlogConverter;
 import com.service.service.service.converter.JsonConverter;
+import com.service.service.utils.RedisUtil;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +32,8 @@ public class BlogServiceImpl implements BlogService {
   @Autowired private BlogMapper blogMapper;
 
   @Autowired TagService tagService;
+
+  @Autowired private RedisUtil redisUtil;
 
   @Override
   public PageInfo<Blog> list(String searchKey, long pageNun, long pageSize, String blogType) {
@@ -52,17 +56,35 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public List<Blog> listAll(String key) {
+
+    // 检查缓存是否存在
+    String blogCacheStr = redisUtil.get(FinalRedisKey.BLOG_REDIS_KEY, key, String.class);
+    if (blogCacheStr != null) {
+      return JsonConverter.readListValue(blogCacheStr, Blog.class);
+    }
+
     Wrapper<BlogDO> queryWrapper =
         new LambdaQueryWrapper<BlogDO>()
             .eq(StringUtils.hasText(key), BlogDO::getTitle, key)
             .orderByDesc(BlogDO::getId);
-    return this.blogMapper.selectList(queryWrapper).stream()
-        .map(BlogConverter::simpleOf)
-        .collect(Collectors.toList());
+    List<Blog> blogList =
+        this.blogMapper.selectList(queryWrapper).stream()
+            .map(BlogConverter::simpleOf)
+            .collect(Collectors.toList());
+
+    blogCacheStr = JsonConverter.toJSONString(blogList);
+    redisUtil.set(FinalRedisKey.BLOG_REDIS_KEY, key, blogCacheStr, 600L);
+    return blogList;
   }
 
   @Override
   public Blog getById(Long blogId) {
+
+    // 检查缓存是否存在
+    String blogCacheStr = redisUtil.get(FinalRedisKey.BLOG_DETAIL_REDIS_KEY, blogId, String.class);
+    if (blogCacheStr != null) {
+      return JsonConverter.readJSON(blogCacheStr, Blog.class);
+    }
 
     // 获取文章详情信息
     BlogDO blogDO = blogMapper.selectById(blogId);
@@ -72,7 +94,12 @@ public class BlogServiceImpl implements BlogService {
     // 更新文章个数
     blogDO.setAccessTime(blogDO.getAccessTime() + 1);
     blogMapper.updateById(blogDO);
-    return BlogConverter.of(blogDO);
+    Blog blog = BlogConverter.of(blogDO);
+
+    blogCacheStr = JsonConverter.toJSONString(blog);
+    redisUtil.set(FinalRedisKey.BLOG_REDIS_KEY, blogId, blogCacheStr, 300L);
+    return blog;
+
   }
 
   @Override

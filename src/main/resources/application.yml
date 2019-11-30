@@ -16,6 +16,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
+
+
+
 application:
   qiniu:
     ak: xxxx
