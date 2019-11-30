@@ -17,7 +17,6 @@ public class UserController {
 
   @PostMapping("/login")
   public UserToken login(@RequestBody LoginInfo info) {
-    userService.login(info.getUsername(), info.getPassword());
-    return new UserToken().setToken("123");
+    return userService.login(info.getUsername(), info.getPassword());
   }
 }
