@@ -39,6 +39,9 @@
 - [x] SpringBoot2.x
 - [x] Mysql 5.7
 - [x] Redis Cache
+- [x] Guava
+
+
 
 
 ## 移动版预览
