@@ -99,7 +99,6 @@ public class BlogServiceImpl implements BlogService {
     blogCacheStr = JsonConverter.toJSONString(blog);
     redisUtil.set(FinalRedisKey.BLOG_REDIS_KEY, blogId, blogCacheStr, 300L);
     return blog;
-
   }
 
   @Override
@@ -126,5 +125,26 @@ public class BlogServiceImpl implements BlogService {
   @Override
   public List<KeyValue> getCount() {
     return blogMapper.getCountByType();
+  }
+
+  @Override
+  public List<Blog> hotBlog(int limit) {
+    // 检查缓存是否存在
+    String blogCacheStr = redisUtil.get(FinalRedisKey.BLOG_HOT_REDIS_KEY, limit, String.class);
+    if (blogCacheStr != null) {
+      return JsonConverter.readListValue(blogCacheStr, Blog.class);
+    }
+
+    Wrapper<BlogDO> queryWrapper =
+        new LambdaQueryWrapper<BlogDO>().orderByDesc(BlogDO::getAccessTime).last("LIMIT " + limit);
+    List<Blog> blogList =
+        blogMapper.selectList(queryWrapper).stream()
+            .map(BlogConverter::simpleOf)
+            .collect(Collectors.toList());
+
+    // 检查缓存是否存在
+    blogCacheStr = JsonConverter.toJSONString(blogList);
+    redisUtil.set(FinalRedisKey.BLOG_HOT_REDIS_KEY, limit, blogCacheStr, 36000L);
+    return blogList;
   }
 }

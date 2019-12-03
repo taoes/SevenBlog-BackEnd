@@ -27,4 +27,7 @@ public interface BlogService {
 
   /** 获取文章统计 */
   List<KeyValue> getCount();
+
+  /** 获取最火的文章 */
+  List<Blog> hotBlog(int limit);
 }

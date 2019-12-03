@@ -9,6 +9,8 @@ public interface FinalRedisKey {
 
   RedisKey BLOG_DETAIL_REDIS_KEY = new BlogDetailRedisKey();
 
+  RedisKey BLOG_HOT_REDIS_KEY = () -> "BLOG_REDIS";
+
   RedisKey MENU_REDIS_KEY = new MenuRedisKey();
 
   RedisKey COMMENT_LATEST_KEY = new CommentLatestRedisKey();

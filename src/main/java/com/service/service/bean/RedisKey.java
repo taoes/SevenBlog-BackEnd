@@ -2,11 +2,11 @@ package com.service.service.bean;
 
 import java.io.Serializable;
 
-public abstract class RedisKey {
+public interface RedisKey {
 
-  public abstract String getPrefix();
+  String getPrefix();
 
-  public String getRedisKey(Serializable id) {
+  default String getRedisKey(Serializable id) {
     if (id == null) {
       id = "EMPTY_KEY";
     }

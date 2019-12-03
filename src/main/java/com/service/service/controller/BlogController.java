@@ -20,6 +20,11 @@ public class BlogController {
     return blogService.listAll(key);
   }
 
+  @GetMapping("/hot")
+  public List<Blog> getHotBlog(@RequestParam(defaultValue = "5") int limit) {
+    return blogService.hotBlog(limit);
+  }
+
   @GetMapping("/type/count")
   public List<KeyValue> getAllCount() {
     return blogService.getCount();

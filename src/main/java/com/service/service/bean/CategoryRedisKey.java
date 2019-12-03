@@ -1,6 +1,6 @@
 package com.service.service.bean;
 
-public class CategoryRedisKey extends RedisKey {
+public class CategoryRedisKey implements RedisKey {
   @Override
   public String getPrefix() {
     return "CATEGORY";

@@ -21,7 +21,7 @@ public class Blog {
 
   private List<String> tagList;
 
-  private LocalDateTime createDatetime;
+  private String createDatetime;
 
-  private LocalDateTime updateDatetime;
+  private String updateDatetime;
 }
