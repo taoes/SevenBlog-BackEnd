@@ -9,4 +9,7 @@ public interface CommentService {
   Comment add(CommentReq req);
 
   List<Comment> list(Long articleId);
+
+  /** 获取最新的评论 */
+  List<Comment> latest(int limit);
 }

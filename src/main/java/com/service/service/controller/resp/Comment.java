@@ -1,6 +1,5 @@
 package com.service.service.controller.resp;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
@@ -18,5 +17,5 @@ public class Comment {
 
   private String content;
 
-  private LocalDateTime createDatetime;
+  private String createDatetime;
 }

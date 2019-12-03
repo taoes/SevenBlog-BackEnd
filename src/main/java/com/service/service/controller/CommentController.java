@@ -22,4 +22,9 @@ public class CommentController {
   public List<Comment> getAllByArticleId(@RequestParam Long articleId) {
     return commentService.list(articleId);
   }
+
+  @GetMapping("/latest")
+  public List<Comment> getLatestComment(@RequestParam(defaultValue = "10") int limit) {
+    return commentService.latest(limit);
+  }
 }
