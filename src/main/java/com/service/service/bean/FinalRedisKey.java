@@ -14,4 +14,6 @@ public interface FinalRedisKey {
   RedisKey MENU_REDIS_KEY = new MenuRedisKey();
 
   RedisKey COMMENT_LATEST_KEY = new CommentLatestRedisKey();
+
+  RedisKey LINK_REDIS_KEY = () -> "LINK";
 }
