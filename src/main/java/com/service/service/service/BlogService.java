@@ -30,4 +30,6 @@ public interface BlogService {
 
   /** 获取最火的文章 */
   List<Blog> hotBlog(int limit);
+
+  void remove(Long id);
 }

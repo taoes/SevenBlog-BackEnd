@@ -40,6 +40,7 @@ public class BlogServiceImpl implements BlogService {
 
     Wrapper<BlogDO> queryWrapper =
         new LambdaQueryWrapper<BlogDO>()
+            .eq(BlogDO::getDeleted, Boolean.FALSE)
             .eq(StringUtils.hasText(blogType), BlogDO::getType, blogType)
             .orderByDesc(BlogDO::getId);
     IPage<BlogDO> blogDOIPage = blogMapper.selectPage(new Page<>(pageNun, pageSize), queryWrapper);
@@ -136,7 +137,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     Wrapper<BlogDO> queryWrapper =
-        new LambdaQueryWrapper<BlogDO>().orderByDesc(BlogDO::getAccessTime).last("LIMIT " + limit);
+        new LambdaQueryWrapper<BlogDO>()
+            .eq(BlogDO::getDeleted, Boolean.FALSE)
+            .orderByDesc(BlogDO::getAccessTime)
+            .last("LIMIT " + limit);
     List<Blog> blogList =
         blogMapper.selectList(queryWrapper).stream()
             .map(BlogConverter::simpleOf)
@@ -146,5 +150,10 @@ public class BlogServiceImpl implements BlogService {
     blogCacheStr = JsonConverter.toJSONString(blogList);
     redisUtil.set(FinalRedisKey.BLOG_HOT_REDIS_KEY, limit, blogCacheStr, 36000L);
     return blogList;
+  }
+
+  @Override
+  public void remove(Long id) {
+    blogMapper.updateById(new BlogDO().setId(id).setDeleted(Boolean.TRUE));
   }
 }

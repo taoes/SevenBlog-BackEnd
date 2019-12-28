@@ -25,6 +25,8 @@ public class BlogDO {
 
     private String content;
 
+    private Boolean deleted;
+
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
