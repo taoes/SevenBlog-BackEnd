@@ -20,11 +20,17 @@ public class FileServiceImpl implements FileService {
   @Autowired private PictureService pictureService;
 
   @Override
-  public UploadFile upload(MultipartFile file) throws IOException {
-    String url = qiniuUtil.uploadImg(file.getInputStream());
+  public UploadFile upload(MultipartFile file, String desc, String topic) throws IOException {
+    String url = qiniuUtil.uploadImg(file.getInputStream(), topic, file.getOriginalFilename());
     log.info("文件上传完成:{}", url);
     // 写入数据库
-    pictureService.save(url, null, null, PictureType.BLOG_PIC);
+    pictureService.save(url, file.getOriginalFilename(), desc, topic, PictureType.BLOG_PIC);
     return new UploadFile().setUrl(url + "?imageView2/2/w/800");
+  }
+
+  @Override
+  public void removeById(Long fileId) {
+    pictureService.remove(fileId);
+
   }
 }
