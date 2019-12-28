@@ -24,11 +24,11 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
 
 
-    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-
-    // https://mvnrepository.com/artifact/com.google.guava/guava
     compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
+    compile "io.springfox:springfox-swagger2:2.9.2"
+    compile "io.springfox:springfox-swagger-ui:2.9.2"
 
     implementation 'com.qiniu:qiniu-java-sdk:7.2.27'
     compileOnly 'org.projectlombok:lombok'
@@ -36,7 +36,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-
-//     第三方依赖
-    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.2.0'
+    compile "com.baomidou:mybatis-plus-boot-starter:3.2.0"
 }
